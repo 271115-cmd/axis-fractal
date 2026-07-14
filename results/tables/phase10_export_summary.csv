@@ -1,0 +1,8 @@
+area,footprints,pct_real_height,default_height_m,crs
+beijing_west,18996,0.0,6.0,EPSG:32650
+beijing_center,20027,2.6,7.0,EPSG:32650
+beijing_east,17494,0.0,18.0,EPSG:32650
+hk_shamshuipo,5841,3.5,30.0,EPSG:2326
+hk_tseungkwano,917,5.7,82.0,EPSG:2326
+hk_kathingwai,3567,0.1,6.0,EPSG:2326
+hk_wanchai,1757,3.1,130.0,EPSG:2326

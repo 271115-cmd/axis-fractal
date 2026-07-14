@@ -73,6 +73,11 @@ phase8:
 phase9:
 	$(PYTHON) src/animate.py
 
+# Phase 10 — export geometry for Rhino/Grasshopper + Blender (GeoJSON/DXF, metric CRS)
+# (the design-feedback tool is run manually: python src/check_design.py <design> --target hutong)
+phase10:
+	$(PYTHON) src/export3d.py
+
 all: phase1 phase2 phase3 phase4 phase5 phase6 phase7 phase8
 
 clean:

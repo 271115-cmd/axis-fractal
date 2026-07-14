@@ -24,6 +24,12 @@ data/processed/*
 # fully re-renderable with `make phase9`. Kept out of git (like processed rasters).
 results/video_assets/
 
+# --- 3D-bridge exports (Phase 10) ---
+# GeoJSON/DXF geometry for Rhino/Blender; large and re-generable with `make phase10`.
+data/exports/
+# check_design.py outputs are per-user-design, not study results:
+results/figures/phase10_designcheck_*.png
+
 # Keep the manual/ folder and its hand-traced GeoJSON tiles under version control,
 # but ignore stray large exports.
 data/manual/*.tif

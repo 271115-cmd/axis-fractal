@@ -140,4 +140,18 @@ the code. Each entry notes whether it is **LOCKED** (decided and in use) or **PR
 
 ---
 
+## Phase 10 — 3D bridge (exports + design feedback)
+
+| Parameter | Value | Status | Justification |
+|---|---|---|---|
+| Export formats | GeoJSON + DXF, per area | IN USE | GeoJSON (with attributes) for Rhino Heron / Blender GIS; DXF (2D polylines) as a CAD fallback. Footprints + buffered streets + extent. |
+| Export CRS | metric (EPSG:32650 Beijing, EPSG:2326 HK) | LOCKED | Geometry must be in metres for 3D massing; a `CRS.txt` in each folder states the EPSG (GeoJSON here is NOT WGS-84). |
+| Building height default | median of the SAME zone's Overture-tagged heights | IN USE | Only 3–6% of buildings carry a height; rather than invent, the untagged majority gets the data-driven zone median (TKO 82 m, SSP 30 m, BJ-center 7 m). `height_src` flags each as 'overture' or 'zone_median_default'. |
+| Height fallback | literature value (`FALLBACK_H`) when <5 tagged | IN USE | Where a zone has too few tagged buildings for a median (e.g. BJ west/east): hutong 6 m, commercial 18 m, etc. — documented, not silent. |
+| Design check — resolution | 2 m/px (same as the study) | LOCKED | A design must be measured on the SAME grid as the benchmarks or Dᵦ/Λ aren't comparable. |
+| Design check — benchmarks | per-tile medians loaded live from `results/tables/` | LOCKED | Benchmarks always match the study; nothing hard-coded. Headline compare scale = Λ(64 m). |
+| Design check — target advice | Λ(64 m) Δ vs target: >+0.15 "too gappy", <−0.15 "too uniform" | PROVISIONAL | A simple, honest tuning signal; the ±0.15 band is a soft tolerance, refine with use. |
+
+---
+
 *Add a row here the moment any new parameter enters the code. An unlogged number is a bug.*
