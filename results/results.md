@@ -154,3 +154,32 @@ These are whole-transect dimensions (one per zone × representation). The statis
 | west | streets | 0.143 | 4.410 | 1.041 |
 
 Reminder: lacunarity is scale-dependent — the CURVE is the result, not any single value (brief anti-goal). Per-tile Λ(r) distributions + the zone comparison come in Phase 5.
+
+## Phase 5 — per-tile distributions + statistics (2026-07-14)
+
+Each transect cut into non-overlapping 500 m tiles (250×250 px). Dᵦ (fit 2-32 px) and Λ(r) computed per tile; tiles below 2% built excluded as voids. Full data in `results/tables/phase5_tile_metrics.csv`; boxplots `results/figures/phase5_tile_distributions.png`.
+
+**Tiles used per zone (after excluding voids):** footprints/center=48, footprints/east=46, footprints/west=48, streets/center=48, streets/east=48, streets/west=48.
+
+**Per-zone medians:**
+
+| rep | metric | west | center | east |
+|---|---|--:|--:|--:|
+| streets | Db | 1.431 | 1.407 | 1.433 |
+| footprints | Db | 1.614 | 1.604 | 1.618 |
+| streets | lam8 | 4.006 | 3.866 | 3.799 |
+| footprints | lam8 | 2.018 | 2.238 | 2.157 |
+| streets | lam16 | 2.817 | 2.635 | 2.698 |
+| footprints | lam16 | 1.522 | 1.750 | 1.639 |
+| streets | lam32 | 2.079 | 1.812 | 1.875 |
+| footprints | lam32 | 1.211 | 1.382 | 1.282 |
+
+**Significant pairwise differences (Mann-Whitney, p<0.05):**
+
+| rep | metric | pair | medians | p | effect (r) |
+|---|---|---|---|--:|---|
+| footprints | lam16 | west vs center | 1.522 vs 1.75 | 0.0351 | 0.25 (small) |
+| streets | lam32 | west vs center | 2.079 vs 1.812 | 0.042 | -0.241 (small) |
+| footprints | lam32 | west vs center | 1.211 vs 1.382 | 0.0076 | 0.317 (medium) |
+
+Ran 24 pairwise tests across 4 metrics × 2 representations × 3 pairs — treat single p-values with multiple-comparison caution (a Bonferroni-style threshold would be ~0.05/24 ≈ 0.0021). Effect sizes matter as much as significance. Interpretation written up honestly, including non-differences.

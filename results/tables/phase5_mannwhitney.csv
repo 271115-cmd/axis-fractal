@@ -1,0 +1,25 @@
+rep,metric,pair,median_a,median_b,U,p,effect_r,effect,sig_.05
+streets,Db,west vs center,1.431,1.407,1405.0,0.0643,-0.22,small,False
+streets,Db,west vs east,1.431,1.433,1227.0,0.5851,-0.065,negligible,False
+streets,Db,center vs east,1.407,1.433,953.0,0.1458,0.173,small,False
+footprints,Db,west vs center,1.614,1.604,1194.0,0.7611,-0.036,negligible,False
+footprints,Db,west vs east,1.614,1.618,1119.0,0.9127,-0.014,negligible,False
+footprints,Db,center vs east,1.604,1.618,1088.0,0.9067,0.014,negligible,False
+streets,lam8,west vs center,4.006,3.866,1265.0,0.4097,-0.098,negligible,False
+streets,lam8,west vs east,4.006,3.799,1205.0,0.7005,-0.046,negligible,False
+streets,lam8,center vs east,3.866,3.799,1096.0,0.6842,0.049,negligible,False
+footprints,lam8,west vs center,2.018,2.238,933.0,0.1094,0.19,small,False
+footprints,lam8,west vs east,2.018,2.157,1023.0,0.5426,0.073,negligible,False
+footprints,lam8,center vs east,2.238,2.157,1212.0,0.4162,-0.098,negligible,False
+streets,lam16,west vs center,2.817,2.635,1383.0,0.0912,-0.201,small,False
+streets,lam16,west vs east,2.817,2.698,1235.0,0.5455,-0.072,negligible,False
+streets,lam16,center vs east,2.635,2.698,1011.0,0.3032,0.122,small,False
+footprints,lam16,west vs center,1.522,1.75,864.0,0.0351,0.25,small,True
+footprints,lam16,west vs east,1.522,1.639,971.0,0.3163,0.12,small,False
+footprints,lam16,center vs east,1.75,1.639,1254.0,0.2582,-0.136,small,False
+streets,lam32,west vs center,2.079,1.812,1430.0,0.042,-0.241,small,True
+streets,lam32,west vs east,2.079,1.875,1288.0,0.3208,-0.118,small,False
+streets,lam32,center vs east,1.812,1.875,1034.0,0.3892,0.102,small,False
+footprints,lam32,west vs center,1.211,1.382,787.0,0.0076,0.317,medium,True
+footprints,lam32,west vs east,1.211,1.282,905.0,0.1333,0.18,small,False
+footprints,lam32,center vs east,1.382,1.282,1274.0,0.1998,-0.154,small,False

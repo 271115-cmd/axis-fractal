@@ -104,3 +104,15 @@ BOXCOUNT_R2_FLAG = 0.99     # below this over the chosen range, flag and inspect
 # (alley scale up to district scale). From the brief.
 LAC_RADII = [8, 16, 32, 64, 128, 256, 512]
 
+# --- Phase 5 per-tile sampling parameters -------------------------------------------------
+TILE_PX = int(round(TILE_M / RASTER_RES_M))    # 500 m / 2 m = 250 px per tile
+# Per-TILE box-counting needs a smaller scaling range than the whole transect (a 250 px tile
+# cannot hold a 128 px box more than ~twice). Fit 2-32 px within a tile.
+TILE_BOX_SIZES = [1, 2, 4, 8, 16, 32, 64]
+TILE_BOX_FIT_MIN_PX = 2
+TILE_BOX_FIT_MAX_PX = 32
+TILE_LAC_RADII = [4, 8, 16, 32, 64]            # lacunarity scales inside a tile (8 m .. 128 m)
+# A tile with almost no structure is not "fabric" (it is a void: lake, plaza, palace grounds).
+# Exclude it from the fractal metrics rather than report a meaningless dimension.
+TILE_MIN_BUILT_FRAC = 0.02
+

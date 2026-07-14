@@ -85,12 +85,16 @@ the code. Each entry notes whether it is **LOCKED** (decided and in use) or **PR
 
 ---
 
-## Phase 5 — Sampling & statistics  (PROVISIONAL)
+## Phase 5 — Sampling & statistics
 
 | Parameter | Value | Status | Justification |
 |---|---|---|---|
-| Sampling tile | 500 m × 500 m, non-overlapping | PROVISIONAL | Independent samples per zone → distributions, not one number per zone. |
-| Between-zone test | Mann-Whitney U + effect size | LOCKED | Non-parametric (doesn't assume normal distributions), appropriate for small tile counts; effect size shows practical, not just statistical, significance. |
+| Sampling tile | 500 m × 500 m (250 px), non-overlapping full tiles | IN USE | Independent samples per zone → distributions, not one number per zone. 48 tiles/zone (partial edge tiles dropped). |
+| Per-tile Dᵦ fit range | 2–32 px | IN USE | A 250 px tile cannot hold a 128 px box; the whole-transect 4–128 px range doesn't apply. Median per-tile fit R² ≈ 0.998. |
+| Per-tile Λ(r) scales | r = 4,8,16,32,64 px (tested 8,16,32) | IN USE | Within a 250 px tile, probes 8 m–128 m. Note: this is FINER than the 1 km scale where whole-transect zones diverged — per-tile stats test within-neighbourhood texture only. |
+| Void exclusion | tiles < 2% built dropped from fractal metrics | IN USE | A lake/plaza/palace void is not fabric; its dimension is meaningless. 0–2 tiles/zone dropped; reported in results.md. |
+| Between-zone test | Mann-Whitney U + rank-biserial effect size | LOCKED | Non-parametric (no normality assumption), fine for ~48 tiles/zone; effect size shows practical, not just statistical, significance. |
+| Multiple comparisons | 24 tests (4 metrics × 2 reps × 3 pairs) | NOTE | Bonferroni-style threshold ≈ 0.05/24 ≈ 0.0021. No result clears strict correction; nominal p<0.05 findings reported as *suggestive*, weighted by effect size. |
 
 ---
 
