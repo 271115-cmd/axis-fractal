@@ -204,3 +204,15 @@ One knob at a time around the 2 m / ×1.0 baseline (resolution 1/2/4 m, street b
 ## Phase 7 — portfolio figures (2026-07-14)
 
 Clean, colourblind-safe (Okabe-Ito, validated), minimal-ink versions of the key results in `results/figures/phase7_*`: transect maps, one log-log fit, the footprint Λ(r) family, per-tile Λ(64 m) boxplots, and a study-area lacunarity heatmap. Same numbers as the diagnostic figures — restyled for a reader, telling the honest 'Center (Axis) gappiest, West (hutong) most uniform' story.
+
+## Phase 8 — Hong Kong data acquired + coverage check (2026-07-14)
+
+Three district sample boxes (NOT transects — HK has no axis): Sham Shui Po tong-lau, Tseung Kwan O podium towers, Kat Hing Wai walled village. Streets = OSM, footprints = Overture (same sources as Beijing), projected to EPSG:2326. Real counts in `results/tables/phase8_hk_acquire_summary.csv`; overview `results/figures/phase8_hk_sites_overview.png`; satellite ground-truth `results/figures/phase8_hk_groundtruth.png`.
+
+| site | streets (km) | footprints | roof km² | box km² | % built |
+|---|--:|--:|--:|--:|--:|
+| shamshuipo | 394.6 | 5841 | 2.368 | 7.53 | 31.4 |
+| tseungkwano | 166.1 | 917 | 0.866 | 5.02 | 17.2 |
+| kathingwai | 91.2 | 3567 | 0.413 | 5.63 | 7.3 |
+
+Caveat: Kat Hing Wai is a ~1 ha walled village; its box is mostly village+field, so it yields few dense tiles — a small-sample qualitative reference, not a full distribution.

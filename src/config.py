@@ -44,6 +44,21 @@ BEIJING_TRANSECTS = {
     "east":   (116.3994, _LAT_SOUTH, 116.4181, _LAT_NORTH),  # Wangfujing / commercial east
 }
 
+# --- Hong Kong study areas (Phase 8) ------------------------------------------------------
+# Design change from Beijing: Hong Kong has NO ceremonial axis, so we don't cut parallel
+# transects. Instead each site is a compact box around a distinct KIND of fabric, tiled the
+# same way. Boxes are (west, south, east, north) in WGS-84. Metric CRS = EPSG:2326 (HK1980).
+#   * shamshuipo   — dense old-Kowloon 'tong lau' grid: the fine-grain vernacular (hutong analogue)
+#   * tseungkwano  — a podium-tower new town: repetitive megastructure (the CBD/coarse analogue)
+#   * kathingwai   — a New Territories walled village + Kam Tin: Chinese-vernacular HERITAGE.
+#         NOTE: a walled village is tiny (~1 ha); this box is mostly village+field, so it yields
+#         FEW dense tiles — treat it as a small-sample qualitative reference, not a distribution.
+HONGKONG_SITES = {
+    "shamshuipo":  (114.152, 22.308, 114.174, 22.338),
+    "tseungkwano": (114.248, 22.298, 114.270, 22.318),
+    "kathingwai":  (114.052, 22.436, 114.078, 22.455),
+}
+
 # How we ask OSM for the street network. "all" = every public way including the small
 # service/residential/pedestrian ways that hutong alleys are usually tagged as.
 NETWORK_TYPE = "all"

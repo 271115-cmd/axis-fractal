@@ -110,4 +110,17 @@ the code. Each entry notes whether it is **LOCKED** (decided and in use) or **PR
 
 ---
 
+## Phase 8 — Hong Kong comparison
+
+| Parameter | Value | Status | Justification |
+|---|---|---|---|
+| Sampling design | compact per-district sample boxes (NOT transects) | IN USE | HK has no ceremonial axis; its comparison units are different *kinds of place*, so parallel transects don't apply. Honest consequence of comparing a planned imperial city to an unplanned port. |
+| Metric CRS | EPSG:2326 (Hong Kong 1980 Grid) | IN USE | HK's official local metric grid; 2 m/px etc. carry over unchanged. |
+| Sites | Sham Shui Po (tong lau), Tseung Kwan O (podium towers), Kat Hing Wai (walled village) | PROVISIONAL | Fine-grain vernacular / megastructure / heritage — the three contrasts the brief names. Megastructure = TKO (a podium-tower new town); alternatives were Kowloon Station / Central reclamation. |
+| Sources | streets = OSM, footprints = Overture | LOCKED | SAME sources as Beijing so the cross-city comparison is fair. HK Overture coverage verified excellent vs satellite (SSP 52%, TKO 47% in ground-truth windows) — unlike Beijing OSM. |
+| Kat Hing Wai caveat | small-sample qualitative reference | NOTE | A ~1 ha walled village yields few dense tiles; not a full distribution. Reported honestly. |
+| 2D limitation | verticality not captured | NOTE | HK is extremely vertical; this is 2D plan analysis. Podium/street-level texture is valid; building height is out of scope. State explicitly (brief). |
+
+---
+
 *Add a row here the moment any new parameter enters the code. An unlogged number is a bug.*
