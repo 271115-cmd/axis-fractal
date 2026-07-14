@@ -85,3 +85,12 @@ STREET_WIDTHS = {
     "_default": 6.0,    # anything unrecognised
 }
 
+# --- Phase 3 box-counting parameters ------------------------------------------------------
+# Box sizes in pixels, powers of 2. At 2 m/px these are 2 m .. 1 km.
+BOX_SIZES = [1, 2, 4, 8, 16, 32, 64, 128, 256, 512]
+# We FIT the slope only over a middle "scaling range": exclude the smallest boxes (pixel-scale
+# rendering noise) and the largest (too few boxes across the ~830 px-wide transect to be stable).
+BOXCOUNT_FIT_MIN_PX = 4     # 8 m — above pixel noise
+BOXCOUNT_FIT_MAX_PX = 128   # 256 m — still >=6 boxes across the transect width
+BOXCOUNT_R2_FLAG = 0.99     # below this over the chosen range, flag and inspect the plot by eye
+

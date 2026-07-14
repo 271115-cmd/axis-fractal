@@ -123,3 +123,19 @@ The two representations are visibly different textures (streets = sparse/linear;
 footprints = denser/areal), and the Center footprints raster clearly shows the Forbidden
 City's coarse monumental blocks amid fine hutong grain. These 0/1 grids are the exact input
 to box-counting (Phase 3) and lacunarity (Phase 4). Still no fractal numbers — that is next.
+
+## Phase 3 — box-counting dimension (2026-07-14)
+
+Box sizes [1, 2, 4, 8, 16, 32, 64, 128, 256, 512] px; slope fitted over 4-128 px (= 8-256 m). Every log-log plot saved to `results/figures/phase3_boxcount_*`.
+
+| zone | representation | Dᵦ | 95% CI | R² |
+|---|---|--:|---|--:|
+| west | streets | 1.546 | 1.432–1.661 | 0.9972 |
+| west | footprints | 1.767 | 1.667–1.867 | 0.9983 |
+| center | streets | 1.559 | 1.426–1.691 | 0.9962 |
+| center | footprints | 1.746 | 1.664–1.827 | 0.9989 |
+| east | streets | 1.538 | 1.415–1.661 | 0.9967 |
+| east | footprints | 1.752 | 1.658–1.846 | 0.9985 |
+
+**R² check:** all fits ≥ 0.99.
+These are whole-transect dimensions (one per zone × representation). The statistically meaningful per-tile distributions + zone comparison come in Phase 5.

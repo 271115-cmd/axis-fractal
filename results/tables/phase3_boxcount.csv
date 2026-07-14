@@ -1,0 +1,7 @@
+zone,rep,D,ci_low,ci_high,r2
+west,streets,1.5463,1.4319,1.6606,0.9972
+west,footprints,1.7671,1.6673,1.8669,0.9983
+center,streets,1.5586,1.4258,1.6914,0.9962
+center,footprints,1.7456,1.6638,1.8274,0.9989
+east,streets,1.5379,1.4153,1.6605,0.9967
+east,footprints,1.7521,1.6581,1.8462,0.9985

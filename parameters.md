@@ -67,10 +67,10 @@ the code. Each entry notes whether it is **LOCKED** (decided and in use) or **PR
 
 | Parameter | Value | Status | Justification |
 |---|---|---|---|
-| Box sizes | powers of 2 | PROVISIONAL | Standard for box-counting; gives evenly spaced points on the log-log axis. |
-| Scaling range | exclude smallest (near pixel size) and largest (near image size) boxes | PROVISIONAL | The log-log relation is only linear over a middle range; the ends are artefacts of resolution and image extent. Exact range chosen per-plot and recorded. |
+| Box sizes | 1,2,4,…,512 px (powers of 2) | IN USE | Standard for box-counting; evenly spaced on the log-log axis. |
+| Scaling (fit) range | 4–128 px (8–256 m) | IN USE | Excludes 1–2 px (pixel-scale saturation, visible curving up at the right of each plot) and 256–512 px (too few boxes across the ~830 px width, curving down at the left). Verified by eye on every plot. All 6 Beijing fits gave R² ≥ 0.996, so the middle range is genuinely linear. |
 | Fit | least squares, report slope + 95% CI + R² | LOCKED | Brief requirement: a dimension without an R² and confidence interval is not a defensible measurement. |
-| R² flag threshold | 0.99 | PROVISIONAL | Below this over the chosen range, we stop and inspect the log-log plot to pick the linear range explicitly rather than trusting an automatic fit. |
+| R² flag threshold | 0.99 | IN USE | Below this over the chosen range, stop and inspect the log-log plot to pick the linear range by eye. (Not triggered for Beijing — all fits cleared it.) |
 
 ---
 
