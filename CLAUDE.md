@@ -9,6 +9,11 @@
 > **Comparison city: Hong Kong** (changed from Seoul on 2026-07-14). Hong Kong has *no*
 > imperial ceremonial axis — which is the point: it tests whether human-scale texture comes
 > from heritage protection or from morphology. See the research question and Phase 8 below.
+>
+> **Output framing: a documentary VIDEO SERIES** (changed from a research paper on 2026-07-15).
+> Same Beijing/Hong Kong research; the pipeline now also emits broadcast-quality visual assets
+> (Phase 9) and 3D-bridge exports for Rhino/Grasshopper + Blender (Phase 10). The paper draft in
+> `paper/` becomes the narration/script basis, not the primary deliverable.
 
 ## Who I am and how to work with me
 I am a high school student with minimal coding experience learning Python through this project. This research supports my undergraduate architecture applications, so **I must genuinely understand everything built here**.
@@ -93,6 +98,21 @@ Re-run the full pipeline varying: raster resolution (1/2/4 m), buffer widths (±
 
 ### Phase 8 — Hong Kong comparison
 Same pipeline on four sample zones: (1) Sham Shui Po / Mong Kok fine-grain tong lau fabric, (2) a podium-tower megastructure zone (Union Square/Kowloon Station, Central reclamation, or Tseung Kwan O), (3) a New Territories walled village tile (e.g., Kat Hing Wai) as the Chinese-vernacular heritage sample, (4) optionally a mixed transitional zone (Wan Chai). Reuse all modules; only acquisition bounding boxes and CRS change. Note in results.md that Hong Kong OSM building-footprint coverage is generally strong — prefer the footprint representation here, and use the HK arm to cross-validate the street-vs-footprint sensitivity found in Phase 6. Document the 2D limitation: verticality is not captured.
+
+### Phase 9 — Video asset generation (for the YouTube series)
+The research now feeds a documentary series, so the pipeline must also output broadcast-quality visuals:
+- **Box-counting animation:** render frame sequences (PNG, 1920×1080, dark background) of the grid overlay shrinking over the Forbidden City raster, with live box-count numbers — exportable as image sequence for video editing.
+- **Gliding-box animation:** the box sweeping across a hutong tile vs. a CBD tile side by side, with a live Λ readout.
+- **Map renders:** clean styled figure-ground maps of each transect/tile (matplotlib or QGIS-ready exports), high-res, with data attribution burned into a corner of every frame (accurately: "© OpenStreetMap contributors · Overture Maps" — streets are OSM, footprints are Overture).
+- **Chart templates:** consistent typography/color across all result charts (define once in viz.py) so every episode's graphics look like one series.
+- All animation scripts live in `src/animate.py`; frames output to `results/video_assets/<episode>/`. Keep frames deterministic and re-renderable — episode edits will demand regenerations.
+
+### Phase 10 — 3D bridge (Rhino/Grasshopper + Blender)
+The user has live MCP plugins for Rhino/Grasshopper and Blender. The pipeline must export geometry they can ingest:
+- **Footprint exports:** per-transect and per-tile building footprints as GeoJSON (and DXF) in the metric CRS, with height attributes where OSM/Overture provides them (default heights by zone where absent — document the assumption).
+- **Street/void exports:** buffered street polygons and the binary raster extents as vectors, for figure-ground modeling.
+- **Design-feedback utility:** a small CLI (`src/check_design.py`) that takes any plan image or exported curve set from Grasshopper, rasterizes it at the standard resolution, and returns its Db and Λ(r) curve against the measured zone benchmarks — enabling a live loop: GH design → export → check → re-tune toward target Λ.
+- Keep all exports deterministic and documented in parameters.md so 3D scenes can be rebuilt.
 
 ## Explicit anti-goals
 - No invented or interpolated metrics, ever.

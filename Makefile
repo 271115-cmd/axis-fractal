@@ -20,6 +20,7 @@ help:
 	@echo "  setup      create .venv + install requirements"
 	@echo "  verify     Phase 0 — check env + osmnx download works"
 	@echo "  phase1..8  run one phase (see README for what each produces)"
+	@echo "  phase9     render video-asset frames to results/video_assets/"
 	@echo "  all        phase1 -> phase8"
 	@echo "  clean      delete generated rasters/figures/tables (keeps raw downloads)"
 
@@ -67,6 +68,10 @@ phase7:
 phase8:
 	$(PYTHON) src/acquire_hk.py
 	$(PYTHON) src/compare_hk.py
+
+# Phase 9 — render video-asset frame sequences (offline; needs data/processed rasters)
+phase9:
+	$(PYTHON) src/animate.py
 
 all: phase1 phase2 phase3 phase4 phase5 phase6 phase7 phase8
 

@@ -123,4 +123,18 @@ the code. Each entry notes whether it is **LOCKED** (decided and in use) or **PR
 
 ---
 
+## Phase 9 — Video assets
+
+| Parameter | Value | Status | Justification |
+|---|---|---|---|
+| Frame size | 1920×1080 px, dpi 100 | IN USE | Standard 1080p broadcast frame for the video series. |
+| Background | dark (`#0b0b10`) | IN USE | Brief requirement; footprints render as warm off-white on near-black. |
+| Box-counting box sizes | 256,128,64,32,16,8,4,2 px (descending) | IN USE | 128–4 px = the fitted range (accent); 256 & 2 px = excluded scale-ends (grey) — mirrors the Phase 3 methodology so the video shows the *real* fit. |
+| Forbidden City crop | 760 px (~1.52 km) centred on 39.9175 N, 116.3960 E | PROVISIONAL | Fits the 833 px-wide Center raster; frames the palace mass + surrounding hutong grain. Adjust centre/size for a different shot. |
+| Running dimension | least-squares slope over fitted points *so far* | IN USE | The video shows D emerging and settling (1.92 → 1.76) as finer boxes are added — pedagogical, and the final value matches the Phase 3 Center measurement. |
+| Attribution burn-in | "© OpenStreetMap contributors · Overture Maps" | LOCKED | Accurate to our data (streets OSM, footprints Overture) — not OSM-only, per honesty. |
+| Frame determinism | one PNG per box size; editor sets hold time | LOCKED | Deterministic + re-renderable (`make phase9`); frames gitignored (regenerable). |
+
+---
+
 *Add a row here the moment any new parameter enters the code. An unlogged number is a bug.*

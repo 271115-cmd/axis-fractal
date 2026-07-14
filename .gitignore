@@ -19,6 +19,11 @@ data/processed/*
 !data/raw/.gitkeep
 !data/processed/.gitkeep
 
+# --- Video-asset frame sequences (Phase 9) ---
+# Deterministic PNG frames for the video series; numerous and large across episodes, and
+# fully re-renderable with `make phase9`. Kept out of git (like processed rasters).
+results/video_assets/
+
 # Keep the manual/ folder and its hand-traced GeoJSON tiles under version control,
 # but ignore stray large exports.
 data/manual/*.tif
