@@ -27,6 +27,8 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
 import config
+from boxcount import load_binary
+from lacunarity import lacunarity_at
 
 # --- broadcast dark palette ---------------------------------------------------------------
 BG = "#0b0b10"          # near-black background
@@ -145,13 +147,118 @@ def render_boxcount(episode: str = "ep1_boxcount_forbidden_city") -> None:
     print(f"\n{len(sizes)} frames -> {out_dir.relative_to(config.ROOT)}  (1920×1080, hold each ~1–1.5 s)")
 
 
+def tile_by_index(fname: str, tile_row: int, tile_col: int, size: int = config.TILE_PX) -> np.ndarray:
+    """Crop the (tile_row, tile_col) 500 m tile from a processed raster — same tiling as Phase 5,
+    so we can select a tile that is *representative* of a zone's reported median lacunarity."""
+    with rasterio.open(config.DATA_PROCESSED / fname) as src:
+        arr = (src.read(1) > 0).astype(np.uint8)
+    r0, c0 = tile_row * size, tile_col * size
+    return arr[r0:r0 + size, c0:c0 + size]
+
+
+def render_gliding_box(episode: str = "ep2_gliding_box_lacunarity") -> None:
+    """A box glides across a fine-grain tile vs a megastructure tile; live mass + running Λ.
+
+    On the fine grain the captured mass barely changes (low lacunarity); on the megastructure
+    it lurches between a full podium and an empty gap (high lacunarity). Same box, same sweep.
+    """
+    from matplotlib.patches import Rectangle
+    r, step, size = 32, 20, config.TILE_PX          # 32 px box = 64 m (the headline scale); 250 px tile
+    # tiles chosen to be REPRESENTATIVE of each zone's reported median Λ(64 m):
+    #   Beijing west tile (14,1) → Λ≈1.21 (median 1.21);  HK TKO tile (2,3) → Λ≈3.05 (median 2.92)
+    cols = [
+        ("Beijing · hutong (fine grain)", tile_by_index("beijing_west_footprints_2m.tif", 14, 1)),
+        ("Hong Kong · Tseung Kwan O (megastructure)", tile_by_index("hk_tseungkwano_footprints_2m.tif", 2, 3)),
+    ]
+    true_lam = [lacunarity_at(a, r) for _, a in cols]
+    struct_cmap = ListedColormap([BG, STRUCT])
+    positions = [(rr, cc) for rr in range(0, size - r + 1, step)
+                 for cc in range(0, size - r + 1, step)]
+    series = [[] for _ in cols]
+
+    out_dir = config.RESULTS / "video_assets" / episode
+    out_dir.mkdir(parents=True, exist_ok=True)
+    for i, (rr, cc) in enumerate(positions):
+        fig = plt.figure(figsize=(19.2, 10.8), dpi=100)
+        fig.text(0.5, 0.95, "LACUNARITY — how gappy is the fabric?", color=INK, fontsize=20,
+                 ha="center", family="monospace")
+        for j, (x0, (label, arr)) in enumerate(zip([0.04, 0.54], cols)):
+            m = int(arr[rr:rr + r, cc:cc + r].sum())
+            series[j].append(m)
+            ms = np.array(series[j], float)
+            run = float((ms ** 2).mean() / ms.mean() ** 2) if ms.mean() > 0 else float("nan")
+
+            axImg = fig.add_axes([x0, 0.40, 0.42, 0.46])
+            axImg.imshow(arr, cmap=struct_cmap, interpolation="nearest")
+            axImg.add_patch(Rectangle((cc - 0.5, rr - 0.5), r, r, fill=True,
+                                      facecolor=ACCENT, alpha=0.20, edgecolor=ACCENT, lw=2.5))
+            axImg.set_xlim(-0.5, size - 0.5); axImg.set_ylim(size - 0.5, -0.5)
+            axImg.set_xticks([]); axImg.set_yticks([])
+            fig.text(x0, 0.885, label, color=INK, fontsize=15)
+            fig.text(x0, 0.345, f"box mass m = {m:<5}   Λ ≈ {run:.2f}  (measured {true_lam[j]:.2f})",
+                     color=ACCENT, fontsize=15, family="monospace")
+
+            axSpark = fig.add_axes([x0, 0.13, 0.42, 0.17])
+            axSpark.plot(series[j], color=ACCENT, lw=2)
+            axSpark.set_ylim(0, r * r); axSpark.set_xlim(0, len(positions))
+            axSpark.set_title("box mass as the box glides  (flat = uniform, jagged = gappy)",
+                              color=MUTED, fontsize=11)
+            axSpark.set_yticks([]); axSpark.set_xticks([])
+        fig.text(0.985, 0.02, ATTRIB, color=MUTED, fontsize=9, ha="right")
+        fig.savefig(out_dir / f"frame_{i:03d}.png", facecolor=BG)
+        plt.close(fig)
+    print(f"  {len(positions)} frames -> {out_dir.relative_to(config.ROOT)}  "
+          f"(hutong Λ={true_lam[0]:.2f} stays low, TKO Λ={true_lam[1]:.2f} lurches high)")
+
+
+def render_maps() -> None:
+    """High-res dark figure-ground maps of each transect/site, attribution burned in."""
+    out_dir = config.RESULTS / "video_assets" / "maps"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    struct_cmap = ListedColormap([BG, STRUCT])
+    jobs = [
+        ("Beijing · West (hutong)", "beijing_west_footprints_2m.tif"),
+        ("Beijing · Center (Axis)", "beijing_center_footprints_2m.tif"),
+        ("Beijing · East (commercial)", "beijing_east_footprints_2m.tif"),
+        ("Hong Kong · Sham Shui Po (tong lau)", "hk_shamshuipo_footprints_2m.tif"),
+        ("Hong Kong · Tseung Kwan O (podium towers)", "hk_tseungkwano_footprints_2m.tif"),
+        ("Hong Kong · Kat Hing Wai (walled village)", "hk_kathingwai_footprints_2m.tif"),
+        ("Hong Kong · Wan Chai (mixed)", "hk_wanchai_footprints_2m.tif"),
+    ]
+    for title, fname in jobs:
+        arr = load_binary(config.DATA_PROCESSED / fname)
+        H, W = arr.shape
+        long_in = 12.0
+        figsize = (long_in * W / H, long_in) if H >= W else (long_in, long_in * H / W)
+        fig, ax = plt.subplots(figsize=figsize, dpi=150)
+        fig.subplots_adjust(0, 0, 1, 1)
+        ax.imshow(arr, cmap=struct_cmap, interpolation="nearest")
+        ax.set_xticks([]); ax.set_yticks([])
+        for s in ax.spines.values():
+            s.set_visible(False)
+        ax.plot([20, 20 + 250], [H - 25, H - 25], color=INK, lw=3)  # 500 m
+        ax.text(20, H - 45, "500 m", color=INK, fontsize=10)
+        ax.text(20, 55, title, color=INK, fontsize=14)
+        ax.text(W - 15, H - 12, ATTRIB, color=MUTED, fontsize=8, ha="right")
+        slug = fname.replace("_footprints_2m.tif", "")
+        fig.savefig(out_dir / f"map_{slug}.png", facecolor=BG)
+        plt.close(fig)
+        print(f"  map_{slug}.png")
+    print(f"maps -> {out_dir.relative_to(config.ROOT)}")
+
+
 def main() -> None:
     print("=" * 62)
     print("axis-fractal — Phase 9 video assets")
     print("=" * 62)
     video_style()
+    print("[1/3] box-counting animation")
     render_boxcount()
-    print("\nPhase 9 (box-counting animation) done.")
+    print("[2/3] gliding-box lacunarity animation")
+    render_gliding_box()
+    print("[3/3] figure-ground map renders")
+    render_maps()
+    print("\nPhase 9 video assets done.")
 
 
 if __name__ == "__main__":

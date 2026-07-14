@@ -133,7 +133,10 @@ the code. Each entry notes whether it is **LOCKED** (decided and in use) or **PR
 | Forbidden City crop | 760 px (~1.52 km) centred on 39.9175 N, 116.3960 E | PROVISIONAL | Fits the 833 px-wide Center raster; frames the palace mass + surrounding hutong grain. Adjust centre/size for a different shot. |
 | Running dimension | least-squares slope over fitted points *so far* | IN USE | The video shows D emerging and settling (1.92 → 1.76) as finer boxes are added — pedagogical, and the final value matches the Phase 3 Center measurement. |
 | Attribution burn-in | "© OpenStreetMap contributors · Overture Maps" | LOCKED | Accurate to our data (streets OSM, footprints Overture) — not OSM-only, per honesty. |
-| Frame determinism | one PNG per box size; editor sets hold time | LOCKED | Deterministic + re-renderable (`make phase9`); frames gitignored (regenerable). |
+| Gliding-box: box size | 32 px = 64 m (step 20 px) | IN USE | Matches the Phase 5/paper headline scale (Λ(64 m)); 121 sweep frames per clip. |
+| Gliding-box: demo tiles | Beijing west tile (14,1) Λ≈1.21; HK TKO tile (2,3) Λ≈3.05 | IN USE | Chosen to be REPRESENTATIVE of each zone's reported median Λ(64 m) — not cherry-picked extremes. Selected by scanning all tiles for the closest-to-median value. |
+| Map renders | dark figure-ground, dpi 150, long side 12 in | IN USE | High-res per-transect/site footprint maps with title, 500 m scale bar, attribution burned in. |
+| Frame determinism | one PNG per box size / sweep step; editor sets hold time | LOCKED | Deterministic + re-renderable (`make phase9`); frames gitignored (regenerable). |
 
 ---
 
