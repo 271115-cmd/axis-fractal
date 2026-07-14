@@ -98,13 +98,15 @@ the code. Each entry notes whether it is **LOCKED** (decided and in use) or **PR
 
 ---
 
-## Phase 6 — Sensitivity analysis  (PROVISIONAL)
+## Phase 6 — Sensitivity analysis
 
 | Parameter | Values swept | Status | Justification |
 |---|---|---|---|
-| Raster resolution | 1 / 2 / 4 m | PROVISIONAL | Shows whether zone rankings survive changes in resolution. |
-| Buffer widths | ±50% | PROVISIONAL | Shows whether conclusions depend on the (uncertain) road-width assumptions. |
-| Representation | streets vs footprints | PROVISIONAL | Two independent views of the same fabric; agreement strengthens any claim. |
+| Design | one-factor-at-a-time around 2 m / ×1.0 baseline | IN USE | Isolates the effect of each knob; simpler to read than a full 18-cell cross-product. |
+| Raster resolution | 1 / 2 / 4 m | IN USE | Result: footprint Λ(64 m) zone ordering (Center>East>West) is resolution-INVARIANT; Dᵦ zone-indistinguishability also holds (absolute Dᵦ drifts down with coarser pixels, an expected artifact). |
+| Buffer widths | ×0.5 / ×1.0 / ×1.5 | IN USE | Result: the streets Λ signal weakens as buffers widen (p 0.04→0.09 at ×1.5) — flagged as fragile. |
+| Representation | streets vs footprints | IN USE | The robust signal is in footprints; streets give the opposite West-vs-Center direction and are buffer-sensitive. |
+| Scale handling | scales fixed in METRES, converted to px per resolution | LOCKED | A "64 m" box must be 64 m at every resolution; comparing fixed pixel counts across resolutions would be an arithmetic artifact, not a finding. |
 
 ---
 

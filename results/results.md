@@ -183,3 +183,20 @@ Each transect cut into non-overlapping 500 m tiles (250×250 px). Dᵦ (fit 2-32
 | footprints | lam32 | west vs center | 1.211 vs 1.382 | 0.0076 | 0.317 (medium) |
 
 Ran 24 pairwise tests across 4 metrics × 2 representations × 3 pairs — treat single p-values with multiple-comparison caution (a Bonferroni-style threshold would be ~0.05/24 ≈ 0.0021). Effect sizes matter as much as significance. Interpretation written up honestly, including non-differences.
+
+## Phase 6 — sensitivity analysis (2026-07-14)
+
+One knob at a time around the 2 m / ×1.0 baseline (resolution 1/2/4 m, street buffers ×0.5/×1.0/×1.5, both representations). Scales held fixed in METRES so resolutions compare fairly. Full table `results/tables/phase6_sensitivity.csv`; figure `results/figures/phase6_sensitivity.png`.
+
+| config | rep | Dᵦ W/C/E | Λ(64 m) W/C/E | W-vs-C Λ p | effect | dir |
+|---|---|---|---|--:|--:|---|
+| baseline | streets | 1.431/1.407/1.433 | 2.079/1.812/1.875 | 0.042 | -0.241 | W>=C |
+| res 1 m | streets | 1.465/1.445/1.459 | 2.073/1.811/1.873 | 0.0384 | -0.246 | W>=C |
+| res 4 m | streets | 1.355/1.319/1.344 | 2.082/1.817/1.887 | 0.0582 | -0.225 | W>=C |
+| buffer ×0.5 | streets | 1.322/1.276/1.315 | 2.196/1.962/2.044 | 0.0451 | -0.24 | W>=C |
+| buffer ×1.5 | streets | 1.516/1.5/1.521 | 1.86/1.673/1.725 | 0.0912 | -0.201 | W>=C |
+| baseline | footprints | 1.614/1.604/1.618 | 1.211/1.382/1.282 | 0.0076 | 0.317 | W<C |
+| res 1 m | footprints | 1.65/1.638/1.642 | 1.21/1.386/1.28 | 0.0081 | 0.314 | W<C |
+| res 4 m | footprints | 1.587/1.575/1.593 | 1.223/1.399/1.284 | 0.0079 | 0.315 | W<C |
+
+**Robustness of Phase 5's signal (footprints West < Center in Λ(64 m)):** direction held in ALL footprint configs; nominally significant (p<0.05) in 3 of 3. Dᵦ remained indistinguishable across zones in every configuration. Interpretation written up honestly in the response.
