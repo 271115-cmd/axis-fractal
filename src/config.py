@@ -53,10 +53,13 @@ BEIJING_TRANSECTS = {
 #   * kathingwai   — a New Territories walled village + Kam Tin: Chinese-vernacular HERITAGE.
 #         NOTE: a walled village is tiny (~1 ha); this box is mostly village+field, so it yields
 #         FEW dense tiles — treat it as a small-sample qualitative reference, not a distribution.
+#   * wanchai      — a dense HK-Island MIXED old/new district: the transitional context sample
+#         (the brief's sanctioned optional 4th zone). Small box → modest tile count.
 HONGKONG_SITES = {
     "shamshuipo":  (114.152, 22.308, 114.174, 22.338),
     "tseungkwano": (114.248, 22.298, 114.270, 22.318),
     "kathingwai":  (114.052, 22.436, 114.078, 22.455),
+    "wanchai":     (114.165, 22.270, 114.185, 22.285),
 }
 
 # How we ask OSM for the street network. "all" = every public way including the small

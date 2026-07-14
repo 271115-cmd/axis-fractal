@@ -207,12 +207,30 @@ Clean, colourblind-safe (Okabe-Ito, validated), minimal-ink versions of the key 
 
 ## Phase 8 — Hong Kong data acquired + coverage check (2026-07-14)
 
-Three district sample boxes (NOT transects — HK has no axis): Sham Shui Po tong-lau, Tseung Kwan O podium towers, Kat Hing Wai walled village. Streets = OSM, footprints = Overture (same sources as Beijing), projected to EPSG:2326. Real counts in `results/tables/phase8_hk_acquire_summary.csv`; overview `results/figures/phase8_hk_sites_overview.png`; satellite ground-truth `results/figures/phase8_hk_groundtruth.png`.
+Four district sample boxes (NOT transects — HK has no axis): Sham Shui Po tong-lau, Tseung Kwan O podium towers, Kat Hing Wai walled village, and Wan Chai (mixed transitional). Streets = OSM, footprints = Overture (same sources as Beijing), projected to EPSG:2326. Real counts in `results/tables/phase8_hk_acquire_summary.csv`; overview `results/figures/phase8_hk_sites_overview.png`; satellite ground-truth `results/figures/phase8_hk_groundtruth.png`.
 
 | site | streets (km) | footprints | roof km² | box km² | % built |
 |---|--:|--:|--:|--:|--:|
 | shamshuipo | 394.6 | 5841 | 2.368 | 7.53 | 31.4 |
 | tseungkwano | 166.1 | 917 | 0.866 | 5.02 | 17.2 |
 | kathingwai | 91.2 | 3567 | 0.413 | 5.63 | 7.3 |
+| wanchai | 181.4 | 1757 | 0.903 | 3.42 | 26.4 |
 
-Caveat: Kat Hing Wai is a ~1 ha walled village; its box is mostly village+field, so it yields few dense tiles — a small-sample qualitative reference, not a full distribution.
+Coverage verified excellent vs satellite (Sham Shui Po 52%, Tseung Kwan O 47% built in the ground-truth windows). Caveat: Kat Hing Wai is a ~1 ha walled village; its box is mostly village+field, so it yields few dense tiles — a small-sample qualitative reference, not a full distribution.
+
+## Phase 8b — Hong Kong measured + cross-city comparison (2026-07-14)
+
+Same pipeline (2 m/px, per-500 m-tile Dᵦ and Λ(r)) on the three HK sites; footprints from Overture. **2D plan analysis — HK verticality not captured.** Per-tile data `results/tables/phase8_hk_tile_metrics.csv`; figure `results/figures/phase8_cross_city_lacunarity.png`.
+
+**Footprint medians by fabric type (Dᵦ; Λ(64 m); n tiles):**
+
+| fabric | Beijing | Hong Kong |
+|---|---|---|
+| vernacular | BJ · hutong: Dᵦ 1.614, Λ 1.211 (n=48) | HK · Sham Shui Po: Dᵦ 1.625, Λ 1.535 (n=22) |
+| modern | BJ · commercial: Dᵦ 1.618, Λ 1.282 (n=46) | HK · Tseung Kwan O: Dᵦ 1.587, Λ 2.918 (n=14) |
+| heritage | BJ · Axis: Dᵦ 1.604, Λ 1.382 (n=48) | HK · walled village: Dᵦ 1.307, Λ 2.653 (n=17) |
+| transitional | — (no Beijing analogue) | HK · Wan Chai: Dᵦ 1.604, Λ 2.003 (n=12) |
+
+**Key HK contrast — Sham Shui Po (fine tong-lau) vs Tseung Kwan O (podium megastructure), footprint Λ(64 m):** medians 1.535 vs 2.918, Mann-Whitney p = 0.0011, effect r = 0.656 (large). SSP is the finer/more-uniform fabric, TKO the gappier — as the eye predicts. Interpretation vs Beijing written up in the response, honestly.
+
+Kat Hing Wai (walled village) is a small-sample qualitative reference only (few dense tiles amid fields).
