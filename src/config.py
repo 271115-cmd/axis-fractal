@@ -8,7 +8,12 @@ audit.py both need the same boxes and CRS, and duplicating them would invite mis
 """
 from __future__ import annotations
 
+import warnings
 from pathlib import Path
+
+# Harmless: rasterio's array read triggers a NumPy 2.5 deprecation notice. It does not affect
+# results; we silence just that one message so the pipeline output stays readable.
+warnings.filterwarnings("ignore", message="Setting the shape on a NumPy array")
 
 # --- Folders (all relative to the repo root, computed from this file's location) ---
 ROOT = Path(__file__).resolve().parent.parent
@@ -93,4 +98,9 @@ BOX_SIZES = [1, 2, 4, 8, 16, 32, 64, 128, 256, 512]
 BOXCOUNT_FIT_MIN_PX = 4     # 8 m — above pixel noise
 BOXCOUNT_FIT_MAX_PX = 128   # 256 m — still >=6 boxes across the transect width
 BOXCOUNT_R2_FLAG = 0.99     # below this over the chosen range, flag and inspect the plot by eye
+
+# --- Phase 4 lacunarity parameters --------------------------------------------------------
+# Gliding-box radii (box side) in pixels. At 2 m/px this spans 16 m .. 1 km
+# (alley scale up to district scale). From the brief.
+LAC_RADII = [8, 16, 32, 64, 128, 256, 512]
 

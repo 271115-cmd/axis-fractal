@@ -78,9 +78,10 @@ the code. Each entry notes whether it is **LOCKED** (decided and in use) or **PR
 
 | Parameter | Value | Status | Justification |
 |---|---|---|---|
-| Box radii r | 8, 16, 32, 64, 128, 256, 512 px | PROVISIONAL | At 2 m/px this spans 16 m–1 km — from alley scale to district scale. |
+| Box radii r | 8, 16, 32, 64, 128, 256, 512 px | IN USE | At 2 m/px this spans 16 m–1 km — from alley scale to district scale. |
 | Implementation | integral image / summed-area table | LOCKED | A naive sliding window on a ~4096² array exhausts RAM; the summed-area table computes every box sum in O(1). Brief requirement. |
 | Output | full Λ(r) curve per sample (+ normalized) | LOCKED | Lacunarity is scale-dependent; a single number is meaningless without the curve. Brief anti-goal forbids single-number claims. |
+| Normalization | Λ(r) / Λ(8) (anchor at smallest r) | IN USE | Removes the absolute (density-driven) level so different-density zones' curve SHAPES are comparable. Note Λ(1)=1/p exactly (pure density). Alternative normalizations are a Phase 6 sensitivity consideration. |
 
 ---
 

@@ -139,3 +139,18 @@ Box sizes [1, 2, 4, 8, 16, 32, 64, 128, 256, 512] px; slope fitted over 4-128 px
 
 **R² check:** all fits ≥ 0.99.
 These are whole-transect dimensions (one per zone × representation). The statistically meaningful per-tile distributions + zone comparison come in Phase 5.
+
+## Phase 4 — gliding-box lacunarity (2026-07-14)
+
+Λ(r) for r = [8, 16, 32, 64, 128, 256, 512] px (16 m–1 km) via summed-area table. Full curves in `results/tables/phase4_lacunarity.csv`; plot `results/figures/phase4_lacunarity_curves.png`. Endpoints below (Λ(8)=fine-scale gappiness, Λ(512)=district-scale):
+
+| zone | rep | density p | Λ(8) | Λ(512) |
+|---|---|--:|--:|--:|
+| center | footprints | 0.234 | 2.424 | 1.034 |
+| center | streets | 0.126 | 4.208 | 1.047 |
+| east | footprints | 0.243 | 2.416 | 1.118 |
+| east | streets | 0.138 | 4.408 | 1.062 |
+| west | footprints | 0.257 | 2.251 | 1.025 |
+| west | streets | 0.143 | 4.410 | 1.041 |
+
+Reminder: lacunarity is scale-dependent — the CURVE is the result, not any single value (brief anti-goal). Per-tile Λ(r) distributions + the zone comparison come in Phase 5.
