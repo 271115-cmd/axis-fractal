@@ -93,3 +93,16 @@ representations):**
 
 No fractal dimension or lacunarity numbers yet — that begins in Phase 2, on the street
 representation first.
+
+### Footprint fix — Overture vs OSM (2026-07-14)
+
+Applied the Overture footprint dataset and re-ran the coverage audit. Per-zone median 500 m-tile built fraction:
+
+| zone | OSM footprints | Overture footprints | OSM median cov | Overture median cov |
+|---|--:|--:|--:|--:|
+| west | 3536 | 18996 | 9.9% | 20.4% |
+| center | 4607 | 20027 | 7.5% | 20.0% |
+| east | 2722 | 17494 | 6.1% | 14.6% |
+
+Before/after overlay: `results/figures/phase1_footprint_osm_vs_overture.png`. Overture (source: Zenodo China rooftop dataset via Overture) captures the fine-grain hutong courtyard houses OSM missed. Beijing footprint representation now usable — still to be treated as a separate representation from streets, per the brief.
+

@@ -37,6 +37,15 @@ the code. Each entry notes whether it is **LOCKED** (decided and in use) or **PR
 | Ground-truth basemap | Esri World Imagery | LOCKED | Western provider → WGS-84 aligned with our OSM data (a Chinese basemap would be GCJ-02, shifted ~500 m). |
 | Ground-truth hutong points | Xisi / Shichahai / Nanluoguxiang | PROVISIONAL | One dense-hutong location per transect, in the preserved northern core, for the OSM-vs-satellite visual check. |
 
+### Phase 1+ — Beijing footprint data source  (decided 2026-07-14)
+
+| Parameter | Value | Status | Justification |
+|---|---|---|---|
+| Beijing footprint source | **Overture Maps** buildings | LOCKED | OSM footprints failed the hutong audit; Overture aggregates a China rooftop dataset (Zenodo DOI 10.5281/zenodo.8174931) that captures the fine-grain courtyard houses. Verified: median tile coverage roughly doubled and the ground-truth hutong sites went 5%→23% (Shichahai) and 9%→28% (Nanluoguxiang). |
+| Microsoft Global ML Buildings | REJECTED | LOCKED | Empirically checked — the Microsoft dataset index has **0 tiles for mainland China** (only Japan/Mongolia in the region). Verifying this before use is the reason we didn't waste effort on it. |
+| Street source (unchanged) | OSM | LOCKED | The Phase 1 audit found OSM streets complete and coherent; only footprints are replaced. Streets and footprints remain SEPARATE representations, per the brief. |
+| Overture footprint caveat | machine-derived rooftops | NOTE | Overture's China footprints are ML-derived and may merge adjacent roofs or miss small structures; a big improvement over near-empty OSM, but not survey-grade. Treat as a distinct representation and cross-check in Hong Kong (Phase 8). |
+
 ---
 
 ## Phase 2 — Rasterization  (PROVISIONAL)
