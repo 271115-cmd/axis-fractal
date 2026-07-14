@@ -200,3 +200,7 @@ One knob at a time around the 2 m / ×1.0 baseline (resolution 1/2/4 m, street b
 | res 4 m | footprints | 1.587/1.575/1.593 | 1.223/1.399/1.284 | 0.0079 | 0.315 | W<C |
 
 **Robustness of Phase 5's signal (footprints West < Center in Λ(64 m)):** direction held in ALL footprint configs; nominally significant (p<0.05) in 3 of 3. Dᵦ remained indistinguishable across zones in every configuration. Interpretation written up honestly in the response.
+
+## Phase 7 — portfolio figures (2026-07-14)
+
+Clean, colourblind-safe (Okabe-Ito, validated), minimal-ink versions of the key results in `results/figures/phase7_*`: transect maps, one log-log fit, the footprint Λ(r) family, per-tile Λ(64 m) boxplots, and a study-area lacunarity heatmap. Same numbers as the diagnostic figures — restyled for a reader, telling the honest 'Center (Axis) gappiest, West (hutong) most uniform' story.
