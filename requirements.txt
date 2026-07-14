@@ -1,0 +1,31 @@
+# requirements.txt — libraries this project needs.
+#
+# HOW TO READ THIS FILE
+#   package>=X.Y  means "install this package, version X.Y or newer".
+#   We use lower bounds here for readability. The EXACT versions that were
+#   actually installed are frozen in requirements.lock.txt — that lock file
+#   is what guarantees anyone can reproduce our exact environment.
+#
+# HOW TO INSTALL (from inside the axis-fractal/ folder):
+#   source .venv/bin/activate
+#   pip install -r requirements.txt
+
+# --- Geospatial data acquisition ---
+osmnx>=2.0            # downloads OpenStreetMap streets + building footprints; the v2 API is what our code targets
+geopandas>=1.0        # "pandas for maps": tables where every row has a geometry (a line, a polygon...)
+shapely>=2.0          # the geometry engine underneath geopandas (points, lines, polygons, buffers)
+
+# --- Turning maps into pictures we can measure (rasterizing) ---
+rasterio>=1.3         # reads/writes GeoTIFF raster images and keeps their real-world coordinates
+numpy>=1.26           # the array/matrix workhorse; our binary maps are just NumPy arrays of 0s and 1s
+
+# --- The actual fractal math ---
+scipy>=1.11           # statistics (line fitting, Mann-Whitney U test) used in box-counting + Phase 5
+scikit-image>=0.22    # image tools; handy utilities for the raster/measurement steps
+
+# --- Making figures ---
+matplotlib>=3.8       # every plot: log-log fits, lacunarity curves, boxplots, transect maps
+contextily>=1.5       # drops a satellite/OSM basemap under our maps for the visual completeness audit (Phase 1)
+
+# --- Exploration environment ---
+jupyterlab>=4.0       # runs the notebooks/ files where we explore data interactively

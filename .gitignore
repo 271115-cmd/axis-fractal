@@ -1,0 +1,31 @@
+# --- Python virtual environment (never commit this; each user rebuilds it) ---
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# --- Jupyter checkpoints ---
+.ipynb_checkpoints/
+
+# --- osmnx HTTP cache (regenerable cached OpenStreetMap responses) ---
+cache/
+
+# --- Large / regenerable data ---
+# Raw OSM downloads and processed rasters can be big and are reproducible from code,
+# so we keep them out of git. Small hand-digitized tiles in data/manual/ ARE tracked
+# (they represent real human work that cannot be regenerated) — see the negations below.
+data/raw/*
+data/processed/*
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+
+# Keep the manual/ folder and its hand-traced GeoJSON tiles under version control,
+# but ignore stray large exports.
+data/manual/*.tif
+data/manual/*.tiff
+
+# --- OS / editor cruft ---
+.DS_Store
+*.swp
+.vscode/
+.idea/
