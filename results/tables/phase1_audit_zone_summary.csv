@@ -1,0 +1,4 @@
+zone,n_tiles,median_coverage,median_street_density,median_bldg_count,low_coverage_tiles
+center,90,0.075,15.015,22.0,52
+east,108,0.061,7.54,18.5,69
+west,90,0.099,14.127,14.0,46

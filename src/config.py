@@ -42,3 +42,25 @@ BEIJING_TRANSECTS = {
 # How we ask OSM for the street network. "all" = every public way including the small
 # service/residential/pedestrian ways that hutong alleys are usually tagged as.
 NETWORK_TYPE = "all"
+
+# --- Phase 1 audit parameters ------------------------------------------------------------
+TILE_M = 500.0            # audit/sampling tile size in metres (matches Phase 5)
+
+# A tile whose building coverage falls below this fraction is FLAGGED for a human to check
+# against satellite imagery — it may be a genuine void (park, lake, plaza) or a data gap.
+LOW_COVERAGE_FLAG = 0.10  # 10% built area
+
+# Three known dense-hutong locations, one drawn from each transect, used as ground-truth
+# checks: we overlay OSM on satellite imagery here and see whether the alleys are mapped.
+# (lat, lon) in WGS-84. These sit in the northern, historically preserved half of the core.
+HUTONG_GROUNDTRUTH = {
+    "Xisi (west)":          (39.9245, 116.3720),   # west transect
+    "Shichahai (center)":   (39.9385, 116.3860),   # center transect, NW of the Forbidden City
+    "Nanluoguxiang (east)": (39.9330, 116.4030),   # east transect (hutong north of Wangfujing)
+}
+
+# Satellite basemap for the ground-truth overlay. Esri World Imagery is a Western provider,
+# so it is WGS-84 aligned and matches our OSM data. (A *Chinese* basemap would be GCJ-02 and
+# would appear shifted ~500 m — the same coordinate issue documented in parameters.md.)
+BASEMAP_PROVIDER = "Esri.WorldImagery"
+

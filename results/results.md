@@ -44,3 +44,52 @@ coarser vs. finer grain, but this must be quantified per-tile before any claim.
   - Result: D_b = __ (95% CI __–__, R² = __);  Λ(r) curve saved to results/figures/____.png
   - Notes / caveats: ...
 -->
+
+## Phase 1 — completeness audit (2026-07-14)
+
+Tiled the three transects into 288 tiles of 500 m. Per-tile metrics in `results/tables/phase1_audit_tiles.csv`; maps in `results/figures/phase1_audit_*`.
+
+| zone | tiles | median coverage | median street km/km² | median bldg count | tiles < 10% |
+|---|--:|--:|--:|--:|--:|
+| center | 90 | 7.5% | 15.0 | 22 | 52 |
+| east | 108 | 6.1% | 7.5 | 18 | 69 |
+| west | 90 | 9.9% | 14.1 | 14 | 46 |
+
+**Ground-truth check:** OSM overlaid on Esri satellite imagery at three known hutong spots (`phase1_audit_groundtruth_hutong.png`).
+**Flagged:** 167 tiles below 10% built coverage. These are *candidates to inspect*, not confirmed gaps — many will be genuine voids (lakes, plazas, the Forbidden City grounds). Template for tracing real gaps written to `data/manual/` if any were flagged.
+
+**Preliminary read (to be confirmed by eye against the imagery):** compare the median coverage across zones and check whether the hutong ground-truth tiles look fully mapped. No fractal claims until this is settled.
+
+### Phase 1 audit — CONFIRMED VERDICT (after viewing the satellite overlay)
+
+**Streets: reliable.** The OSM street network is well-mapped and spatially coherent across
+all three transects (median 7.5–15 km/km²; the Center's zero tiles are the real Forbidden
+City void). The street representation is trustworthy for Beijing.
+
+**Building footprints: severely incomplete for hutong fabric.** The ground-truth overlay is
+decisive — at dense, unambiguously built hutong sites OSM footprints capture only a fraction
+of what the imagery shows:
+
+| ground-truth site | OSM says built | imagery shows | verdict |
+|---|--:|---|---|
+| Xisi (west) | 34% | ~60–70% | partial — big blocks yes, fine houses missing |
+| Shichahai (center) | 5% | dense fabric round the lake | **footprints almost entirely absent** |
+| Nanluoguxiang (east) | 9% | famous ~60–70% hutong grid | **most courtyard houses unmapped** |
+
+**Therefore:** the *footprint* representation cannot be trusted for Beijing as-is. The 167/288
+"low-coverage" flag OVER-selects — it cannot tell a genuine void (lake, plaza, Forbidden City)
+from a data gap, so it is a screening aid, not a gap list. The satellite overlay is the real
+evidence.
+
+**Consequences for the pipeline (honest, and consistent with the brief keeping two
+representations):**
+- Lead the Beijing analysis with the **street network** (Phases 2–5); it is complete enough.
+- For Beijing **footprints**, choose a mitigation before trusting them: (a) substitute an
+  external footprint dataset that covers China, or (b) hand-digitize a few representative
+  hutong tiles (template ready in `data/manual/`), or (c) restrict footprint claims to
+  verified tiles only.
+- **Hong Kong (Phase 8)** OSM footprints are reportedly strong — so HK is where the
+  street-vs-footprint cross-check is valid. This makes the HK arm more useful, not less.
+
+No fractal dimension or lacunarity numbers yet — that begins in Phase 2, on the street
+representation first.

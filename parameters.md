@@ -33,6 +33,9 @@ the code. Each entry notes whether it is **LOCKED** (decided and in use) or **PR
 | Center transect bbox | 116.3806, 39.868, 116.3994, 39.944 | PROVISIONAL | 1.6 km slice centred on the Axis (Drum Tower → Forbidden City → Yongdingmen). |
 | East transect bbox | 116.3994, 39.868, 116.4181, 39.944 | PROVISIONAL | 1.6 km slice east of the Axis (Wangfujing / commercial). |
 | OSM network_type | `"all"` | PROVISIONAL | Retrieves every public way incl. service/residential/pedestrian — the classes hutong alleys are usually tagged as. `"all_private"` reserved as a Phase 6 sensitivity option. |
+| Audit low-coverage flag | building coverage < 0.10 | PROVISIONAL | Tiles below 10% built area are flagged for a human to check vs. satellite — could be a genuine void (park/lake/plaza) or a data gap. Not an automatic verdict. |
+| Ground-truth basemap | Esri World Imagery | LOCKED | Western provider → WGS-84 aligned with our OSM data (a Chinese basemap would be GCJ-02, shifted ~500 m). |
+| Ground-truth hutong points | Xisi / Shichahai / Nanluoguxiang | PROVISIONAL | One dense-hutong location per transect, in the preserved northern core, for the OSM-vs-satellite visual check. |
 
 ---
 
