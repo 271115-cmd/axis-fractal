@@ -38,11 +38,11 @@ inscription hook; what first made you wonder whether the hutongs and the imperia
 Keep it personal and specific — admissions readers distrust generic openings.]
 
 The intuition that cities have a measurable "texture" is old. Jacobs argued that fine-grained,
-mixed fabric supports urban life ⚠ VERIFY (Jacobs, 1961); Lynch that legible cities are built from
-repeated elements at multiple scales ⚠ VERIFY (Lynch, 1960); Alexander that living structure recurs
-across scales ⚠ VERIFY (Alexander). Mandelbrot formalised scale-invariance as fractal geometry
-⚠ VERIFY (Mandelbrot, 1982), and Batty & Longley applied it to cities ⚠ VERIFY (Batty & Longley,
-1994). This project asks a narrow, testable version of the question:
+mixed fabric supports urban life (Jacobs, 1961); Lynch that legible cities are built from
+recognisable elements read at multiple scales (Lynch, 1960); Alexander that good environments are
+built from patterns recurring across scales (Alexander, Ishikawa & Silverstein, 1977). Mandelbrot
+formalised scale-invariance as fractal geometry (Mandelbrot, 1982), and Batty & Longley applied it
+to cities (Batty & Longley, 1994). This project asks a narrow, testable version of the question:
 
 **Do the imperial core and the vernacular hutong fabric of Beijing share a spatial texture — while
 the modern city diverges? And can fine-grain texture exist *without* a protected heritage axis, as
@@ -95,9 +95,9 @@ log N vs log(1/ε) by least squares over a justified linear range (4–128 px fo
 2–32 px per tile), reporting the slope Dᵦ with a 95 % confidence interval and R². A log-log plot is
 saved for every computation; all whole-transect fits had R² ≥ 0.996.
 
-**2.6 Lacunarity.** Gliding-box lacunarity Λ(r) = ⟨m²⟩/⟨m⟩² is computed for r = 8–512 px
-(16 m–1 km) using a summed-area table (memory-safe; a naïve sliding window would exhaust RAM). The
-full Λ(r) curve is reported per sample.
+**2.6 Lacunarity.** Gliding-box lacunarity (Allain & Cloitre, 1991; Plotnick et al., 1996),
+Λ(r) = ⟨m²⟩/⟨m⟩², is computed for r = 8–512 px (16 m–1 km) using a summed-area table (memory-safe;
+a naïve sliding window would exhaust RAM). The full Λ(r) curve is reported per sample.
 
 **2.7 Sampling and statistics.** Each area is tiled into non-overlapping 500 m tiles; Dᵦ and Λ(r)
 are computed per tile (tiles < 2 % built are excluded as voids). Zones are compared with the
@@ -177,21 +177,37 @@ field trip, or a third city.]
 
 ---
 
-## References — ⚠ VERIFY EACH ON GOOGLE SCHOLAR BEFORE USE
+## References (verified 2026-07-14 — see `paper/citation_audit.md`)
 
-> Do not cite anything you have not opened and confirmed. These foundational works are believed
-> genuine; confirm exact author/year/title/venue and add page numbers. **Delete any you do not
-> actually use.** Do not add citations you cannot verify.
+> All references below were checked against primary/publisher records on 2026-07-14; every one is
+> genuine (none needed cutting). Still: format them to your required citation style, add page
+> numbers for any direct quotations, and **delete any you do not actually cite in the text**. Do
+> not add new references you have not personally verified.
 
-- Mandelbrot, B. *The Fractal Geometry of Nature*. (1982). — fractal geometry ⚠ VERIFY
-- Batty, M. & Longley, P. *Fractal Cities*. (1994). — fractal analysis of urban form ⚠ VERIFY
-- Allain, C. & Cloitre, M. "Characterizing the lacunarity of random and deterministic fractal
-  sets." *Phys. Rev. A* (1991). — the gliding-box method used here ⚠ VERIFY
-- Plotnick, R. E., Gardner, R. H., et al. — lacunarity analysis method ⚠ VERIFY (confirm exact
-  paper/year)
-- Jacobs, J. *The Death and Life of Great American Cities*. (1961). ⚠ VERIFY
-- Lynch, K. *The Image of the City*. (1960). ⚠ VERIFY
-- Alexander, C. — *A Pattern Language* / *The Nature of Order* (confirm which, and year) ⚠ VERIFY
+**Method**
+- Allain, C. & Cloitre, M. (1991). "Characterizing the lacunarity of random and deterministic
+  fractal sets." *Physical Review A*, 44(6), 3552–3558. doi:10.1103/PhysRevA.44.3552. — the
+  gliding-box lacunarity method used here.
+- Plotnick, R. E., Gardner, R. H., Hargrove, W. W., Prestegaard, K. & Perlmutter, M. (1996).
+  "Lacunarity analysis: A general technique for the analysis of spatial patterns." *Physical
+  Review E*, 53(5), 5461–5468. doi:10.1103/PhysRevE.53.5461.
+- Plotnick, R. E., Gardner, R. H. & O'Neill, R. V. (1993). "Lacunarity indices as measures of
+  landscape texture." *Landscape Ecology*, 8(3), 201–211. doi:10.1007/BF00125351. *(Cite whichever
+  of the two Plotnick papers you actually draw on — or both.)*
+
+**Fractal geometry / urban form**
+- Mandelbrot, B. B. (1982). *The Fractal Geometry of Nature*. W. H. Freeman & Company, San
+  Francisco. (Revised/enlarged from *Fractals: Form, Chance and Dimension*, 1977.)
+- Batty, M. & Longley, P. A. (1994). *Fractal Cities: A Geometry of Form and Function*. Academic
+  Press, London / San Diego.
+
+**Urban design theory** *(cite only those you actually invoke)*
+- Jacobs, J. (1961). *The Death and Life of Great American Cities*. Random House, New York.
+- Lynch, K. (1960). *The Image of the City*. MIT Press, Cambridge, MA.
+- Alexander, C., Ishikawa, S. & Silverstein, M. (1977). *A Pattern Language: Towns, Buildings,
+  Construction*. Oxford University Press, New York. *(If you instead invoke "living structure
+  recurring across scales," cite Alexander's* The Nature of Order, *Book I:* The Phenomenon of
+  Life, *Center for Environmental Structure, 2002 — and pick ONE Alexander work.)*
 
 ## Reproducibility & AI assistance
 
