@@ -64,3 +64,24 @@ HUTONG_GROUNDTRUTH = {
 # would appear shifted ~500 m — the same coordinate issue documented in parameters.md.)
 BASEMAP_PROVIDER = "Esri.WorldImagery"
 
+# --- Phase 2 rasterization parameters -----------------------------------------------------
+RASTER_RES_M = 2.0        # metres per pixel. 2 m resolves a 4 m alley as ~2 px wide.
+RASTER_ALL_TOUCHED = False  # burn a pixel only if its CENTRE is inside the shape (area-true)
+
+# Street WIDTH (metres, full carriageway) by OSM highway class. We buffer each street
+# centreline by width/2 to give it real width before rasterizing. Provisional — the brief
+# anchors primary=20, residential=8, alley≈4; refine from field measurements later.
+STREET_WIDTHS = {
+    "motorway": 25.0, "motorway_link": 12.0,
+    "trunk": 22.0,    "trunk_link": 11.0,
+    "primary": 20.0,  "primary_link": 10.0,
+    "secondary": 15.0, "secondary_link": 8.0,
+    "tertiary": 12.0,  "tertiary_link": 7.0,
+    "residential": 8.0, "unclassified": 8.0,
+    "living_street": 6.0, "pedestrian": 6.0,
+    "service": 4.0,     # hutong alleys are often tagged 'service' -> matches brief's ~4 m alley
+    "footway": 4.0, "path": 4.0, "steps": 4.0, "track": 4.0,
+    "cycleway": 3.0, "corridor": 3.0,
+    "_default": 6.0,    # anything unrecognised
+}
+

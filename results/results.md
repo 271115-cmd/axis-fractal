@@ -106,3 +106,20 @@ Applied the Overture footprint dataset and re-ran the coverage audit. Per-zone m
 
 Before/after overlay: `results/figures/phase1_footprint_osm_vs_overture.png`. Overture (source: Zenodo China rooftop dataset via Overture) captures the fine-grain hutong courtyard houses OSM missed. Beijing footprint representation now usable — still to be treated as a separate representation from streets, per the brief.
 
+
+## Phase 2 — rasterization (2026-07-14)
+
+Built two separate binary rasters per zone at 2 m/pixel (streets buffered by road class;
+Overture footprints painted directly). 1 = structure, 0 = void. GeoTIFFs in
+`data/processed/`; overview `results/figures/phase2_rasters_overview.png`.
+
+| zone | grid (px) | streets: % pixels built | footprints: % pixels built |
+|---|---|--:|--:|
+| west   | 830×4224 | 14.3% | 25.7% |
+| center | 833×4224 | 12.6% | 23.4% |
+| east   | 828×4224 | 13.8% | 24.3% |
+
+The two representations are visibly different textures (streets = sparse/linear;
+footprints = denser/areal), and the Center footprints raster clearly shows the Forbidden
+City's coarse monumental blocks amid fine hutong grain. These 0/1 grids are the exact input
+to box-counting (Phase 3) and lacunarity (Phase 4). Still no fractal numbers — that is next.

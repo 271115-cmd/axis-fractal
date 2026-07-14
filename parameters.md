@@ -52,10 +52,13 @@ the code. Each entry notes whether it is **LOCKED** (decided and in use) or **PR
 
 | Parameter | Value | Status | Justification |
 |---|---|---|---|
-| Raster resolution | 2 m / pixel (start) | PROVISIONAL | Fine enough to resolve ~4 m alleys as ≥2 px wide; coarse enough that a ~1.6 km transect stays a manageable array. Varied to 1/2/4 m in the Phase 6 sensitivity test. |
-| Street buffer — primary | 20 m | PROVISIONAL | Placeholder road half-widths from the brief; to be refined from field measurements. |
-| Street buffer — residential | 8 m | PROVISIONAL | " |
-| Street buffer — alley/pedestrian | 4 m | PROVISIONAL | " |
+| Raster resolution | 2 m / pixel | IN USE | Fine enough to resolve ~4 m alleys as ~2 px wide; a ~1.6 km transect is ~830×4224 px (manageable). Varied to 1/2/4 m in the Phase 6 sensitivity test. |
+| Street widths (full table) | see `config.STREET_WIDTHS` | PROVISIONAL | Full carriageway width by highway class; buffer = width/2. Brief anchors honoured: primary 20 m, residential 8 m, alley≈4 m (service=4). Widest class wins for multi-tagged ways. Refine from field measurements. |
+| Street buffer — primary | 20 m width (buffer 10 m) | PROVISIONAL | From the brief. |
+| Street buffer — residential | 8 m width (buffer 4 m) | PROVISIONAL | From the brief. |
+| Street buffer — service/footway (alleys) | 4 m width (buffer 2 m) | PROVISIONAL | Hutong alleys are usually tagged service/footway; 4 m = 2 px, the minimum to stay connected at 2 m/px. Matches the brief's ~4 m alley. |
+| Rasterize all_touched | False | LOCKED | Burn a pixel only if its centre is inside the shape (area-true), so built fractions are meaningful. Alternative (True) reserved as a sensitivity check. |
+| Beijing footprint layer rasterized | Overture (not OSM) | LOCKED | Per the Phase 1+ footprint fix; streets rasterized from OSM. Kept as two separate rasters per zone. |
 | Binary encoding | 1 = structure, 0 = void | LOCKED | Convention fixed now so every raster in the project means the same thing. |
 
 ---
