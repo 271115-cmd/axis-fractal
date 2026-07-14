@@ -121,20 +121,40 @@ def report(dm: dict, bench: dict, target: str | None, out_png: Path) -> None:
             print(f"\nTarget: {label}  Λ(64 m)={tb:.2f}")
             print(f"  your design Λ(64 m)={dh:.2f}  (Δ={diff:+.2f})  ->  {verdict}")
 
-    # comparison plot: design Λ(r) over benchmark curves
+    # comparison plot: the design's Λ(r) against the *range* of real fabric (no spaghetti labels)
     viz.apply_style()
-    fig, ax = plt.subplots(figsize=(7.5, 5))
-    xm = [r * config.RASTER_RES_M for r in LAC_R]
-    anchors = {("bj", "west"): "hutong (finest)", ("hk", "tseungkwano"): "megastructure (coarsest)"}
-    for (tag, key), b in bench.items():
-        ax.plot(xm, [b["lam"][r] for r in LAC_R], color=viz.FAINT, lw=1.2, zorder=2)
-        if (tag, key) in anchors:   # label only the two reference extremes to avoid clutter
-            ax.text(xm[-1] * 1.02, b["lam"][LAC_R[-1]], anchors[(tag, key)],
-                    color=viz.MUTED, fontsize=8, va="center")
-    ax.plot(xm, [dm["lam"][r] for r in LAC_R], color="#D55E00", lw=2.6, marker="o", zorder=4, label="your design")
-    ax.set_xscale("log", base=2); ax.set_xlabel("box size r (m)"); ax.set_ylabel("Λ(r)")
-    ax.set_title("Design lacunarity vs measured fabric benchmarks")
-    ax.legend(loc="upper right")
+    fig, ax = plt.subplots(figsize=(8.5, 5.6))
+    xm = np.array([r * config.RASTER_RES_M for r in LAC_R])
+    stack = np.array([[b["lam"][r] for r in LAC_R] for b in bench.values()])
+    i64 = LAC_R.index(HEADLINE_R)
+
+    # 1) the measured-fabric envelope (one shaded band instead of seven overlapping curves)
+    ax.fill_between(xm, stack.min(0), stack.max(0), color=viz.FAINT, alpha=0.30, lw=0,
+                    label="range of measured fabric")
+    # 2) just the two reference extremes, cleanly (finest = hutong, coarsest = megastructure)
+    ax.plot(xm, [bench[("bj", "west")]["lam"][r] for r in LAC_R], color=viz.ZONE["west"],
+            lw=1.7, ls=(0, (4, 2)), zorder=3, label="hutong — finest measured")
+    ax.plot(xm, [bench[("hk", "tseungkwano")]["lam"][r] for r in LAC_R], color=viz.ZONE["center"],
+            lw=1.7, ls=(0, (4, 2)), zorder=3, label="megastructure — coarsest measured")
+    # 3) the design, bold, with a thin ink halo so it reads on top of the band
+    dcurve = np.array([dm["lam"][r] for r in LAC_R])
+    ax.plot(xm, dcurve, color=viz.INK, lw=3.6, zorder=5)
+    ax.plot(xm, dcurve, color="#D55E00", lw=2.4, marker="o", ms=7, zorder=6, label="your design")
+    # 4) one callout at the headline 64 m scale (not a label on every point)
+    ntag, nkey = ranked[0][0]
+    span = stack.max() - stack.min()
+    ax.annotate(f"Λ(64 m) = {dh:.2f}   ·   closest to {ntag}:{nkey}",
+                xy=(xm[i64], dcurve[i64]),
+                xytext=(xm[i64] * 0.62, dcurve[i64] + span * 0.16),
+                color=viz.INK, fontsize=10.5,
+                arrowprops=dict(arrowstyle="-", color=viz.MUTED, lw=1.1))
+
+    ax.set_xscale("log", base=2)
+    ax.set_xticks(xm); ax.set_xticklabels([str(int(m)) for m in xm])
+    ax.set_xlabel("gliding-box size r  (m)")
+    ax.set_ylabel("lacunarity Λ(r)   —   higher = gappier / coarser grain")
+    ax.set_title("Where your design's grain sits among real fabric")
+    ax.legend(loc="upper right", framealpha=0, fontsize=9)
     config.FIGURES.mkdir(parents=True, exist_ok=True)
     fig.savefig(out_png, dpi=140, bbox_inches="tight")
     plt.close(fig)
