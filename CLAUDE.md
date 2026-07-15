@@ -107,6 +107,22 @@ The research now feeds a documentary series, so the pipeline must also output br
 - **Chart templates:** consistent typography/color across all result charts (define once in viz.py) so every episode's graphics look like one series.
 - All animation scripts live in `src/animate.py`; frames output to `results/video_assets/<episode>/`. Keep frames deterministic and re-renderable — episode edits will demand regenerations.
 
+### Phase 9b — Blender rendered animations (priority asset batch)
+Blender is connected via the BlenderMCP addon (socket server on localhost:9876). **Workflow rule:** use the live MCP connection for interactive scene setup and previews, but commit every final animation as a standalone `bpy` script in `src/blender/` runnable headless (`blender --background --python <script>.py`) — renders must be reproducible from the repo like everything else. Log camera paths, seeds, and palette in parameters.md.
+
+**Look:** stylized, not photoreal. White/clay extruded fabric on a dark ground plane, data overlays in the series palette, EEVEE renderer for speed. One consistent look across all shots.
+
+Build these, in order:
+1. **The Descent/Ascent ("The Zoom" 3D leg):** one continuous camera move from street level up over the extruded Zone B fabric, easing into a top-down plan view that match-frames the figure-ground raster (and the reverse). Deliver at 1080p60, ~8 s each direction. This template is reused in every episode — build it first and parameterize the target tile.
+2. **Transect orbits:** slow 20 s orbit of each extruded transect (Beijing A/B/C, HK zones) at a consistent height and speed.
+3. **3D grid descent:** the box-counting grid rendered as a translucent 3D lattice lowering onto the Forbidden City fabric, boxes lighting up as they register structure.
+4. **Gliding-box in 3D:** a glowing box sweeping across hutong vs. podium fabric side by side, gap encounters visibly registering.
+5. **Fabric comparison dolly:** one continuous lateral dolly that crosses from Zone A fabric into Zone C — the grain change reads instantly, no narration needed.
+6. **Populated match-cut plates (high-effort signature shots):** stylized street scenes with crowds of clay-figure pedestrians driven by real CMU mocap walk cycles (mocap.cs.cmu.edu — free to copy/modify/redistribute; credit "Motion data from mocap.cs.cmu.edu" in video descriptions). Built from `src/blender/render_anim.py` (template in repo): capsule-limb figures bone-parented to imported BVH armatures (stylized on purpose — realistic humans risk uncanny valley and break the cut), deterministic crowd seed, shot length ≤ clip length so no looping/retargeting is needed. **Match-cut protocol:** the real plate is shot on site FIRST; log camera position, height (~1.6 m eye level), and focal length (or solve from a still with fSpy) and copy into the script's camera config. First target: Qianmen/Dashilan street. Two-step render flow: `blender -b -P render_anim.py` to build and save the .blend, then `blender -b output/<shot>.blend -a` for the long headless render.
+7. **(Later, A5)** proposal turntable + eye-level walkthrough on the real site context.
+
+Import geometry from the Phase 10 GeoJSON/DXF exports (meters). Frames to `results/video_assets/blender/<shot>/`. NOTE (project-specific): our exports live in `data/exports/`; Blender needs a LOCAL-ORIGIN metres GeoJSON (absolute UTM coords are too far from origin) — `src/to_rhino.py`/a small exporter provides the cropped, offset geometry.
+
 ### Phase 10 — 3D bridge (Rhino/Grasshopper + Blender)
 The user has live MCP plugins for Rhino/Grasshopper and Blender. The pipeline must export geometry they can ingest:
 - **Footprint exports:** per-transect and per-tile building footprints as GeoJSON (and DXF) in the metric CRS, with height attributes where OSM/Overture provides them (default heights by zone where absent — document the assumption).

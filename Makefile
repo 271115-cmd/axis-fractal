@@ -73,6 +73,13 @@ phase8:
 phase9:
 	$(PYTHON) src/animate.py
 
+# Phase 9b — build the Blender "Zoom" scene headless (needs Blender CLI; override BLENDER=...)
+BLENDER ?= /Applications/Blender.app/Contents/MacOS/Blender
+phase9b:
+	$(PYTHON) src/blender/export_context.py --area beijing_center --lat 39.9175 --lon 116.396 --half 500 --name forbidden_city_context
+	$(BLENDER) -b -P src/blender/render_zoom.py
+	@echo "Built output/zoom_descent.blend  —  render frames with: $(BLENDER) -b output/zoom_descent.blend -a"
+
 # Phase 10 — export geometry for Rhino/Grasshopper + Blender (GeoJSON/DXF, metric CRS)
 # (the design-feedback tool is run manually: python src/check_design.py <design> --target hutong)
 phase10:

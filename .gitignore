@@ -19,10 +19,15 @@ data/processed/*
 !data/raw/.gitkeep
 !data/processed/.gitkeep
 
-# --- Video-asset frame sequences (Phase 9) ---
+# --- Video-asset frame sequences (Phase 9 / 9b) ---
 # Deterministic PNG frames for the video series; numerous and large across episodes, and
 # fully re-renderable with `make phase9`. Kept out of git (like processed rasters).
 results/video_assets/
+
+# --- Blender build artifacts (Phase 9b) ---
+# .blend files are rebuilt headless from the src/blender/*.py scripts; mocap BVH is large.
+output/
+data/raw/mocap/
 
 # --- 3D-bridge exports (Phase 10) ---
 # GeoJSON/DXF geometry for Rhino/Blender; large and re-generable with `make phase10`.

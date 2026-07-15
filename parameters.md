@@ -138,6 +138,17 @@ the code. Each entry notes whether it is **LOCKED** (decided and in use) or **PR
 | Map renders | dark figure-ground, dpi 150, long side 12 in | IN USE | High-res per-transect/site footprint maps with title, 500 m scale bar, attribution burned in. |
 | Frame determinism | one PNG per box size / sweep step; editor sets hold time | LOCKED | Deterministic + re-renderable (`make phase9`); frames gitignored (regenerable). |
 
+### Phase 9b — Blender rendered animations
+
+| Parameter | Value | Status | Justification |
+|---|---|---|---|
+| Renderer / look | EEVEE; clay 0.85 white fabric, ground 0.05, world 0.02 dark | IN USE | Brief: stylized (not photoreal), one consistent look; EEVEE for speed (~1 s/frame at 1080p, 64 samples). |
+| Reproducibility | final shots are headless `bpy` scripts in `src/blender/`; MCP only for interactive preview | LOCKED | Renders must rebuild from the repo (`blender -b -P <script>.py`), like every other output. |
+| Local-origin export | `export_context.py` crops + offsets footprints to a 0,0 origin | LOCKED | Absolute UTM/HK coords sit ~4.4e6 m from origin → Blender float precision fails; must offset. |
+| Zoom camera (shot 1) | 35 mm, TrackTo scene centre; street (c,−90,5 m) → plan (c,c,1150 m); clip_end 5000 m | IN USE | ~8 s descent/ascent, 480 f @ 60 fps, 1920×1080. clip_end raised because the plan view sits >1000 m up (default far-clip). |
+| Crowd seed (match-cut) | 42 (`render_anim.py`) | IN USE | Deterministic crowds (reproducibility). Shot length ≤ BVH clip length → no looping/retargeting. |
+| Mocap source | CMU Graphics Lab (mocap.cs.cmu.edu), BVH | NOTE | Free to use; credit "Motion data from mocap.cs.cmu.edu" in video descriptions. BVH files go in `data/raw/mocap/` (gitignored). |
+
 ---
 
 ## Phase 10 — 3D bridge (exports + design feedback)
