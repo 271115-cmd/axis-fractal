@@ -149,6 +149,29 @@ the code. Each entry notes whether it is **LOCKED** (decided and in use) or **PR
 | Crowd seed (match-cut) | 42 (`render_anim.py`) | IN USE | Deterministic crowds (reproducibility). Shot length ≤ BVH clip length → no looping/retargeting. |
 | Mocap source | CMU Graphics Lab (mocap.cs.cmu.edu), BVH | NOTE | Free to use; credit "Motion data from mocap.cs.cmu.edu" in video descriptions. BVH files go in `data/raw/mocap/` (gitignored). |
 
+### Central Axis landmark heights (`src/landmarks.py`) — published facts, cited
+
+Height is this project's weakest data: only ~3% of Beijing footprints carry a real Overture height;
+the rest get a 7 m zone-median default, which flattens the Axis. These published figures restore its
+vertical rhythm. Positions geocoded from OpenStreetMap; heights from official/primary sources.
+
+| Landmark | Height | Source |
+|---|--:|---|
+| 钟楼 Bell Tower | 47.9 m | zh.wikipedia.org/zh-cn/北京中轴线 |
+| 鼓楼 Drum Tower | 46.7 m | (same) |
+| 正阳门 Zhengyangmen (Qianmen) | 43.65 m — tallest old city gate | beijing.gov.cn/shipin/bjfq/18938.html |
+| 太和殿 Hall of Supreme Harmony | 35.05 m (incl. 台基 terrace) | dpm.org.cn/explore/building/236465.html |
+| 天安门 Tiananmen | 34.7 m | news.qq.com/rain/a/20240910A000UN00 |
+| 永定门 Yongdingmen | 26.0 m | bjdch.gov.cn/mldc/bglj/whgj/202008/t20200827_2975733.html |
+| 万春亭 Wanchun Pavilion | 15.38 m (pavilion only) | gygl.beijing.gov.cn/mlgy/mlgy_gyjg01/201912/t20191211_1048536.html |
+
+| Parameter | Value | Status | Justification |
+|---|---|---|---|
+| Application radius | 70 m from landmark centroid | PROVISIONAL | Footprints under a landmark take its published height and are tagged `height_src='landmark_published'` — never silently overwritten. |
+| Jingshan hill | **unused** (`JINGSHAN_HILL_M = None`) | NOTE | The 万春亭 figure is the pavilion only; it stands on an artificial hill that is TERRAIN we don't model. Commonly cited ~45–48 m but **unverified**, so deliberately not used rather than guessed. |
+| 云上中轴 (Tencent × Beijing CHB) | **reference only, no assets taken** | LOCKED | Excellent for proportion/colour/relation. Its 3D assets are proprietary (~15 TB, in-app) — we read published facts and build our own geometry. Facts (heights/positions) aren't copyrightable; the scan meshes are. |
+| PanoCity (HF, CC-BY-4.0) | **rejected after inspection** | NOTE | Aerial panos + depth + poses, Beijing 20 blocks — but poses are arbitrary LOCAL coords (e.g. 768.0, −9.0, 728.0): no lat/lon, CRS, or origin, so nothing can be tied to our footprints. Camera grid at fixed altitude + the PanoVGGT training-set citation indicate RENDERED/synthetic imagery, so heights would be a model's, not measurements (violates rule #2). Also: window recesses (~0.2 m) are far below aerial depth noise — windows are an RGB-periodicity signal, not a depth one. |
+
 ### Phase 9b — Tier 2 production plate (`render_plate.py`, Qianmen)
 
 | Parameter | Value | Status | Justification |
