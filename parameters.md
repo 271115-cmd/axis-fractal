@@ -149,6 +149,21 @@ the code. Each entry notes whether it is **LOCKED** (decided and in use) or **PR
 | Crowd seed (match-cut) | 42 (`render_anim.py`) | IN USE | Deterministic crowds (reproducibility). Shot length ≤ BVH clip length → no looping/retargeting. |
 | Mocap source | CMU Graphics Lab (mocap.cs.cmu.edu), BVH | NOTE | Free to use; credit "Motion data from mocap.cs.cmu.edu" in video descriptions. BVH files go in `data/raw/mocap/` (gitignored). |
 
+### Phase 9b — Tier 2 production plate (`render_plate.py`, Qianmen)
+
+| Parameter | Value | Status | Justification |
+|---|---|---|---|
+| Facade pool (req 2) | PolyHaven PBR: `brick_wall_003`, `brick_wall_001`, `brick_moss_001`, `brick_4` × 5 tints = 20 variants | IN USE | Real diffuse+normal+rough maps replaced flat procedural colour — the single biggest fix for "bland". CC0; curl'd to `data/raw/assets/tex/` (gitignored). |
+| Texture projection | **BOX** projection on **Object** coords, uv_scale 0.40–0.50 | LOCKED | The box geometry has no UVs; box-projection in object space (metres) maps brick correctly on every face. An earlier UV-less brick node produced vertical "barcode" stripes — the classic generic tell. |
+| Street paving | `brick_pavement_02`, uv_scale 0.22 | IN USE | Real paving under raking light gives the ground depth and scale cues. |
+| Emission levels | windows 1.6 · lanterns/gate 4.0–4.5 · signs 3.0 | IN USE | **AgX clips hot emission to flat white "paper".** First pass at 6–18 blew out; these values glow warm without clipping. |
+| Renderer (final) | Cycles, **64 samples** + denoising, max_bounces 6 | IN USE | 64+denoise is ample for motion and ~⅓ faster than 96 over 300 frames. GI bounce is what makes the brick/lantern light read. |
+| **GPU gotcha** | run `src/blender/gpu_prefs.py` before `-a` | LOCKED | `scene.cycles.device='GPU'` is saved in the .blend but the **device selection lives in user preferences**, which headless `-b file.blend -a` does NOT load → silent CPU fallback. Measured: **CPU ~168 s/frame vs GPU (M1 Metal) ~77 s/frame**. |
+| Figure scale | BVH `global_scale=0.0675` | LOCKED | Verified: yields 1.76 m armature (brief noted 0.0564 → ~1.42 m). Checked every build via a printed height. |
+| Figure pose (still) | frame 60 | IN USE | BVH frame 1 is the calibration **T-pose**; frame 60 is mid-walk. |
+| Crowd de-sync | NLA strip started at −5…−90 frames | IN USE | Figures sharing a clip would otherwise march in lockstep; a negative-offset strip puts each at a different gait phase from frame 1. |
+| Shot length / seed | 300 frames @ 30 fps (10 s), SEED 7 | IN USE | ≤ mocap clip length so no looping/retargeting; seed keeps crowds + clutter deterministic. |
+
 ---
 
 ## Phase 10 — 3D bridge (exports + design feedback)
